@@ -12,6 +12,7 @@
   "dependencies": {
     "async": "^2.6.0",
     "ejs": "^2.5.7",
+    "express": "^4.16.2",
     "jfs": "^0.3.0",
     "setinterval": "^0.2.0",
     "steem": "^0.7.1"
