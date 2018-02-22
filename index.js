@@ -32,7 +32,7 @@ app.get('/download', function(req, res) {
 	res.download(file);
 });
 
-var server = app.listen(8080, function(err) {
+var server = app.listen(process.env.PORT || 8080, function(err) {
 	if (err) throw err;
 });
 
