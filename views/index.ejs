@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Single page web app</title>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" id="font-awesome-css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" media="screen">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script src="javascript/script.js"></script>
+
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse" role="navigation">
+	<div class="container-fluid">
+
+
+	<ul class="nav navbar-nav navbar-left">
+	
+		
+		<li><a href="/download"><span class="glyphicon glyphicon-download-alt"></span> Download Database </a></li>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li><a href="https://busy.org/@evildido">made by <b>@evildido</b> </a></li>
+	</ul>
+	</div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+<div style="position:absolute; top:60px; left:10px; width:50%; height:500px;">
+<canvas id="myChart" width="400" height="400"></canvas>
+</div>
+<div style="position:absolute; top:600px; left:10px; width:50%; height:500px;">
+<canvas id="myChart1" width="400" height="400"></canvas>
+</div>
+
+<div style="position:absolute; top:60px; left:50%; width:50%; height:500px;">
+<canvas id="myChart2" width="400" height="400"></canvas>
+</div>
+
+<div style="position:absolute; top:600px; left:50%; width:50%; height:500px;">
+<canvas id="myChart3" width="400" height="400"></canvas>
+</div>
+
+<script>
+<% labels = []; %>
+<% sbd_supply = []; %>
+<% steem_supply = []; %>
+<% sbd_print_rate = []; %>
+<% ratio = []; %>
+<% medianPrice = []; %>
+
+<% result.forEach(function(element, i, array) { %>
+
+<% labels[i] = element.time; %> 
+<% sbd_supply[i] = element.current_sbd_supply; %>
+<% steem_supply[i] = element.current_supply; %>
+<% sbd_print_rate[i] = element.sbd_print_rate/100; %>
+<% ratio[i] = element.ratio; %>
+<% medianPrice[i] = element.medianPrice; %>
+<% }); %>
+labels = <%- JSON.stringify(labels) %>
+sbd_supply = <%- JSON.stringify(sbd_supply) %>
+steem_supply = <%- JSON.stringify(steem_supply) %>
+sbd_print_rate = <%- JSON.stringify(sbd_print_rate) %>
+ratio = <%- JSON.stringify(ratio) %>
+medianPrice = <%- JSON.stringify(medianPrice) %>
+
+
+
+
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+    labels: labels,
+        datasets: [{
+            label: "SBD Supply",
+            data: sbd_supply,
+            yAxisID: 'SBD Supply',
+ 			borderColor : 'rgba(0, 255, 0, 0.2)',
+ 			backgroundColor : 'rgba(0, 255, 0, 0.2)',
+            borderWidth: 0.5
+        },
+        {
+        	 label: "STEEM Supply",
+            data: steem_supply,
+            yAxisID: 'STEEM Supply',
+ 			borderColor : 'rgba(0, 0, 255, 0.2)',
+ 			backgroundColor : 'rgba(0, 0, 255, 0.2)',
+
+            borderWidth: 0.5
+        }
+        ]
+    },
+    options: 
+	{
+		
+		maintainAspectRatio: false,
+		title : {
+			display : true,
+			position : 'bottom',
+			text : 'Supply',
+			fontSize : 20
+		},
+		scales: {
+                xAxes: [{
+                    display: true,
+                    time: {
+                    	isoWeekday: 'true'
+                   }
+                }],
+                yAxes: [{
+                	id: 'SBD Supply',
+                    type: 'linear',
+                    position: 'left'
+                },
+                {
+                	id: 'STEEM Supply',
+                    type: 'linear',
+                    position: 'right'
+                }
+				]
+		}
+		
+    }
+});
+
+
+
+var ctx1 = document.getElementById("myChart1");
+var myChart1 = new Chart(ctx1, {
+    type: 'line',
+    data: {
+    labels: labels,
+        datasets: [
+         {
+			label: "SBD Print Rate",
+        	backgroundColor : 'rgba(0, 255, 0, 0.2)',
+            data: sbd_print_rate,
+ 
+            borderWidth: 1
+        },
+		{
+			label: "Debt ratio",
+			yAxisID: 'Debt ratio',
+			backgroundColor : 'rgba(0, 0, 0, 0.2)',
+			data: ratio,
+			borderWidth: 1
+        }
+
+        ]
+    },
+    options: 
+	{
+		
+		maintainAspectRatio: false,
+		title : {
+			display : true,
+			position : 'bottom',
+			text : 'SBD Print Rate by Debt ratio',
+			fontSize : 20
+		},
+		scales: {
+               xAxes: [{
+                   display: true,
+                   time: {
+                   	isoWeekday: 'true'
+                  }
+               },
+
+			   ],
+            yAxes: [{
+                type: 'linear',
+                position: 'left'
+            },
+			{
+               	id: 'Debt ratio',
+                   type: 'linear',
+                   position: 'right'
+			}]
+		}
+		
+    }
+});
+
+var ctx2 = document.getElementById("myChart2");
+var myChart2 = new Chart(ctx2, {
+    type: 'line',
+    data: {
+    labels: labels,
+        datasets: [
+		{
+			label: "SBD Supply",
+			yAxisID: 'SBD Supply',
+			backgroundColor : 'rgba(0, 255, 0, 0.2)',
+			data: sbd_supply,
+			borderWidth: 1
+        },
+         {
+			label: "STEEM median price",
+        	backgroundColor : 'rgba(0, 0, 0, 0.2)',
+            data: medianPrice,
+ 
+            borderWidth: 1
+        }
+
+
+        ]
+    },
+    options: 
+	{
+		
+		maintainAspectRatio: false,
+		title : {
+			display : true,
+			position : 'bottom',
+			text : 'SBD Supply by STEEM median price',
+			fontSize : 20
+		},
+		scales: {
+               xAxes: [{
+                   display: true,
+                   time: {
+                   	isoWeekday: 'true'
+                  }
+               },
+
+			   ],
+            yAxes: [{
+                type: 'linear',
+                position: 'left'
+            },
+			{
+               	id: 'SBD Supply',
+                   type: 'linear',
+                   position: 'right'
+			}]
+		}
+		
+    }
+});
+
+var ctx3 = document.getElementById("myChart3");
+var myChart3 = new Chart(ctx3, {
+    type: 'line',
+    data: {
+    labels: labels,
+        datasets: [
+		{
+			label: "Debt ratio",
+			yAxisID: 'Debt Ratio',
+			backgroundColor : 'rgba(0, 255, 0, 0.2)',
+			data: ratio,
+			borderWidth: 1
+        },
+         {
+			label: "STEEM median price",
+			yAxisID: 'Steem median price',
+        	backgroundColor : 'rgba(0, 0, 0, 0.2)',
+            data: medianPrice,
+ 
+            borderWidth: 1
+        }
+
+
+        ]
+    },
+    options: 
+	{
+		
+		maintainAspectRatio: false,
+		title : {
+			display : true,
+			position : 'bottom',
+			text : 'Debt ratio by STEEM median price',
+			fontSize : 20
+		},
+		scales: {
+               xAxes: [{
+                   display: true,
+                   time: {
+                   	isoWeekday: 'true'
+                  }
+               }
+
+			   ],
+            yAxes: [{
+				type: 'linear',
+				id: 'Steem median price',
+                position: 'left'
+            },
+			{
+               	id: 'Debt Ratio',
+                type: 'linear',
+                position: 'right'
+			}]
+		}
+		
+    }
+});
+
+
+
+
+</script>
+
+
+
+
+</p>
+
+
+</body>
+</html>
+

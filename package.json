@@ -1,0 +1,19 @@
+{
+  "name": "steem_supply",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.0",
+    "ejs": "^2.5.7",
+    "jfs": "^0.3.0",
+    "setinterval": "^0.2.0",
+    "steem": "^0.7.1"
+  }
+}
