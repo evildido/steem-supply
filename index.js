@@ -92,7 +92,7 @@ setInterval(function() {
 		}
 		])
 
-},10000);
+},3600000);
 
 
 process.on('uncaughtException', function (err) {
