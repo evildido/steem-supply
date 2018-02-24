@@ -103,7 +103,7 @@ var myChart = new Chart(ctx, {
             borderWidth: 0.5
         },
         {
-        	 label: "STEEM Supply",
+        	label: "STEEM Supply",
             data: steem_supply,
             yAxisID: 'STEEM Supply',
  			borderColor : 'rgba(0, 0, 255, 0.2)',
@@ -125,7 +125,7 @@ var myChart = new Chart(ctx, {
 		},
 		scales: {
                 xAxes: [{
-                    display: true,
+                   display: true,
 				   type:'time',
 				   time:{
 					   tooltipFormat: 'MMM D YYYY h:mm:ss a',
@@ -137,10 +137,18 @@ var myChart = new Chart(ctx, {
                 }],
                 yAxes: [{
                 	id: 'SBD Supply',
+            	    scaleLabel: {
+            			labelString: 'SBD Supply',
+            			display: true
+            		},
                     type: 'linear',
                     position: 'left'
                 },
                 {
+            		scaleLabel: {
+            			labelString: 'STEEM Supply',
+            			display: true
+            		},
                 	id: 'STEEM Supply',
                     type: 'linear',
                     position: 'right'
@@ -161,6 +169,7 @@ var myChart1 = new Chart(ctx1, {
         datasets: [
          {
 			label: "SBD Print Rate",
+			yAxisID: 'SBD Print Rate',
         	backgroundColor : 'rgba(0, 255, 0, 0.2)',
             data: sbd_print_rate,
  
@@ -183,10 +192,11 @@ var myChart1 = new Chart(ctx1, {
 		title : {
 			display : true,
 			position : 'bottom',
-			text : 'SBD Print Rate by Debt ratio',
+			text : 'SBD Print Rate / Debt ratio',
 			fontSize : 20
 		},
 		scales: {
+
                xAxes: [{
                    display: true,
 				   type:'time',
@@ -201,10 +211,19 @@ var myChart1 = new Chart(ctx1, {
 
 			   ],
             yAxes: [{
+            	scaleLabel: {
+            		labelString: 'SBD Print Rate',
+            		display: true
+            	},
+            	id: 'SBD Print Rate',
                 type: 'linear',
                 position: 'left'
             },
 			{
+				scaleLabel: {
+            		labelString: 'Debt Ratio',
+            		display: true
+            	},
                	id: 'Debt ratio',
                    type: 'linear',
                    position: 'right'
@@ -245,7 +264,7 @@ var myChart2 = new Chart(ctx2, {
 		title : {
 			display : true,
 			position : 'bottom',
-			text : 'SBD Supply by STEEM median price',
+			text : 'SBD Supply / STEEM median price',
 			fontSize : 20
 		},
 		scales: {
@@ -263,13 +282,21 @@ var myChart2 = new Chart(ctx2, {
 
 			   ],
             yAxes: [{
+            	scaleLabel: {
+            		labelString: 'STEEM Median Price',
+            		display: true
+            	},
                 type: 'linear',
                 position: 'left'
             },
 			{
                	id: 'SBD Supply',
-                   type: 'linear',
-                   position: 'right'
+            	scaleLabel: {
+            		labelString: 'SBD Supply',
+            		display: true
+            	},
+                type: 'linear',
+                position: 'right'
 			}]
 		}
 		
@@ -308,7 +335,7 @@ var myChart3 = new Chart(ctx3, {
 		title : {
 			display : true,
 			position : 'bottom',
-			text : 'Debt ratio by STEEM median price',
+			text : 'Debt ratio / STEEM median price',
 			fontSize : 20
 		},
 		scales: {
@@ -329,11 +356,19 @@ var myChart3 = new Chart(ctx3, {
 			   ],
             yAxes: [{
 				type: 'linear',
+            	scaleLabel: {
+            		labelString: 'STEEM Median Price',
+            		display: true
+            	},
 				id: 'Steem median price',
                 position: 'left'
             },
 			{
                	id: 'Debt Ratio',
+            	scaleLabel: {
+            		labelString: 'Debt Ratio',
+            		display: true
+            	},
                 type: 'linear',
                 position: 'right'
 			}]
